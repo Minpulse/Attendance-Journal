@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <div>
+                <h1 class="header__title">Attendance Journal</h1>
+                <p class="header__subtitle">Учет присутствия студентов и статистика пропусков</p>
+            </div>
+            <div class="auth-panel">
+                <span id="roleBadge" class="badge badge--readonly">Режим просмотра</span>
+                <button id="authBtn" class="btn btn--primary">Войти как преподаватель</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Сводная статистика по группе -->
+        <section class="stats-bar">
+            <div class="stat-card">
+                <span class="stat-card__label">Всего студентов</span>
+                <strong id="totalStudentsCount" class="stat-card__value">0</strong>
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__label">Проведено занятий</span>
+                <strong id="totalDatesCount" class="stat-card__value">0</strong>
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__label">Средняя посещаемость</span>
+                <strong id="avgAttendanceRate" class="stat-card__value">0%</strong>
+            </div>
+        </section>
+
+        <!-- Панель управления (только с паролем) -->
+        <section id="adminControls" class="controls-grid hidden">
+            <form id="addStudentForm" class="card form-inline">
+                <input type="text" id="studentNameInput" placeholder="ФИО студента (например, Петров Петр)" required>
+                <input type="text" id="studentGroupInput" placeholder="Группа" value="Название группы" required>
+                <button type="submit" class="btn btn--success">Добавить студента</button>
+            </form>
+
+            <form id="addDateForm" class="card form-inline">
+                <input type="text" id="dateInput" placeholder="Дата (ДД.ММ)" maxlength="5" required>
+                <button type="submit" class="btn btn--primary">Добавить занятие</button>
+            </form>
+        </section>
+
+        <!-- Поиск, сортировка -->
+        <section class="toolbar card">
+            <div class="toolbar__filters">
+                <input type="text" id="searchInput" placeholder="Поиск по фамилии...">
+                <select id="sortSelect">
+                    <option value="default">По умолчанию</option>
+                    <option value="name_asc">По фамилии (А–Я)</option>
+                    <option value="absences_desc">По неуваж. пропускам (убыв.)</option>
+                    <option value="rate_asc">По проценту посещаемости (возр.)</option>
+                </select>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="lowAttendanceFilter">
+                    Только в зоне риска (&lt; 80% посещаемости)
+                </label>
+            </div>
+
+            <div class="legend">
+                <span class="legend__item"><i class="dot dot--p"></i> П — присутствовал</span>
+                <span class="legend__item"><i class="dot dot--n"></i> Н — неуважительно</span>
+                <span class="legend__item"><i class="dot dot--u"></i> У — ув. причина</span>
+                <span class="legend__item"><i class="dot dot--o"></i> О — опоздание</span> <!-- от 15 минут -->
+            </div>
+        </section>
+
+        <!-- Таблица посещаемости (формируется динамически через DOM) -->
+        <section class="table-wrapper card">
+            <table class="journal-table">
+                <thead id="journalThead"></thead>
+                <tbody id="journalTbody"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

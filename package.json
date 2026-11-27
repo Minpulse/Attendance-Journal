@@ -1,0 +1,12 @@
+{
+  "name": "attendance-journal",
+  "version": "1.0.0",
+  "description": "Веб-приложение «Электронный журнал посещаемости»",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
