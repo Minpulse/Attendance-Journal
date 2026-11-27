@@ -167,7 +167,6 @@ select {
 .btn--primary {
     background: var(--primary);
     padding: 10px;
-    margin-left: 650px;
 }
 .btn--success {
     background: var(--success);
